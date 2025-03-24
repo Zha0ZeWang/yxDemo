@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Erxiao's Games - Play free online games in various categories including Action, Shooting, Racing, and Horror games.">
+    <title>Erxiao's Games - Free Online Games Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'apple-blue': '#0066CC',
+                        'apple-gray': '#F5F5F7',
+                        'apple-text': '#1D1D1F',
+                        'apple-text-secondary': '#86868B',
+                        'apple-red': '#FF3B30',
+                        'apple-green': '#34C759',
+                        'apple-orange': '#FF9500'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzAwNjZDQyIgZD0iTTIxLDYuNEMyMSw1LjYyNiAyMC4zNzQsNSAxOS42LDVIMTguMjQ2QzEyLjY0NiwyLjI1NCA0LjI0NSw1LjAwMiA0LDBIMEM0LjI0NSw1LjAwMiAxMi42NDYsMi4yNTQgMTguMjQ2LDVINEMzLjIyNiw1IDIuNiw1LjYyNiAyLjYsNi40VjE3LjZDMi42LDE4LjM3NCAzLjIyNiwxOSA0LDE5SDIwYzAuNzc0LDAgMS40LTAuNjI2IDEuNC0xLjRWNi40ek0xNC4zNDYsOC4wMDJjMC42MTMsMCAxLjExMSwwLjQ5OCAxLjExMSwxLjExMVMxNC45NTksMTAuMjI0IDE0LjM0NiwxMC4yMjRzLTEuMTExLTAuNDk4LTEuMTExLTEuMTExUzEzLjczMyw4LjAwMiAxNC4zNDYsOC4wMDJ6TTE4LDhjMC41NTIsMCAxLDAuNDQ3IDEsMXMtMC40NDgsMS0xLDFzLTEtMC40NDctMS0xUzE3LjQ0OCw4IDE4LDh6TTksOWMwLjU1MiwwIDEsMC40NDcgMSwxcy0wLjQ0OCwxLTEsMVM4LDEwLjU1MyA4LDEwUzguNDQ4LDksOSw5ek01LjU1NCw5LjAyM2MwLjYxMywwIDEuMTExLDAuNDk4IDEuMTExLDEuMTExcy0wLjQ5OCwxLjExMS0xLjExMSwxLjExMXMtMS4xMTEtMC40OTgtMS4xMTEtMS4xMTFTNC45NDEsOS4wMjMgNS41NTQsOS4wMjN6TTE0LDE1SDEwYy0wLjU1MywwLTEtMC40NDctMS0xczAuNDQ3LTEsMS0xaDRjMC41NTMsMCAxLDAuNDQ3IDEsMVMxNC41NTMsMTUgMTQsMTV6Ii8+PC9zdmc+">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5rem;
+        }
+        .game-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .game-iframe {
+            display: none;
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        .game-iframe.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-apple-gray text-apple-text">
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center gap-2">
+                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#0066CC" d="M21,6.4C21,5.626 20.374,5 19.6,5H18.246C12.646,2.254 4.245,5.002 4,0H0C4.245,5.002 12.646,2.254 18.246,5H4C3.226,5 2.6,5.626 2.6,6.4V17.6C2.6,18.374 3.226,19 4,19H20c0.774,0 1.4-0.626 1.4-1.4V6.4zM14.346,8.002c0.613,0 1.111,0.498 1.111,1.111S14.959,10.224 14.346,10.224s-1.111-0.498-1.111-1.111S13.733,8.002 14.346,8.002zM18,8c0.552,0 1,0.447 1,1s-0.448,1-1,1s-1-0.447-1-1S17.448,8 18,8zM9,9c0.552,0 1,0.447 1,1s-0.448,1-1,1S8,10.553 8,10S8.448,9 9,9zM5.554,9.023c0.613,0 1.111,0.498 1.111,1.111s-0.498,1.111-1.111,1.111s-1.111-0.498-1.111-1.111S4.941,9.023 5.554,9.023zM14,15H10c-0.553,0-1-0.447-1-1s0.447-1,1-1h4c0.553,0 1,0.447 1,1S14.553,15 14,15z"/></svg>
+                    <span class="text-xl font-bold">Erxiao's Games</span>
+                </a>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#action" class="hover:text-apple-blue font-medium">Action</a>
+                    <a href="#shooting" class="hover:text-apple-blue font-medium">Shooting</a>
+                    <a href="#racing" class="hover:text-apple-blue font-medium">Racing</a>
+                    <a href="#horror" class="hover:text-apple-blue font-medium">Horror</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-3 pb-2">
+                <a href="#action" class="block py-2 hover:text-apple-blue">Action</a>
+                <a href="#shooting" class="block py-2 hover:text-apple-blue">Shooting</a>
+                <a href="#racing" class="block py-2 hover:text-apple-blue">Racing</a>
+                <a href="#horror" class="block py-2 hover:text-apple-blue">Horror</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 px-4 bg-gradient-to-r from-apple-blue to-blue-600 text-white">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Erxiao's Games</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Your destination for free, high-quality online games. Choose from action, shooting, racing, and horror games!</p>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a href="#action" class="bg-white text-apple-blue px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition">Action Games</a>
+                <a href="#shooting" class="bg-white text-apple-blue px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition">Shooting Games</a>
+                <a href="#racing" class="bg-white text-apple-blue px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition">Racing Games</a>
+                <a href="#horror" class="bg-white text-apple-blue px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition">Horror Games</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Display Section -->
+    <section class="py-10 container mx-auto px-4">
+        <div id="game-container" class="bg-white rounded-lg shadow-lg p-4 mb-12 hidden">
+            <button id="close-game" class="bg-apple-red text-white px-4 py-2 rounded mb-4">Close Game</button>
+            <div id="iframe-container" class="w-full"></div>
+        </div>
+
+        <!-- Action Games -->
+        <section id="action" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-apple-blue pl-3">Action Games</h2>
+            <p class="text-apple-text-secondary mb-8">Experience thrilling adventures with our collection of action-packed games that will keep you on the edge of your seat.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Action Game 1 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?action,game" alt="Action Game 1" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-blue text-white px-2 py-1 rounded text-sm">Action</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">ShadowFight Arena</h3>
+                        <p class="text-gray-600 mb-3">Fast-paced combat with explosive action and special moves.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Engage in intense battles with powerful fighters, each with unique abilities and fighting styles. Master combos, unleash special moves, and become the champion of the arena.</p>
+                        <button class="play-game bg-apple-blue text-white w-full py-2 rounded hover:bg-blue-700 transition" data-src="https://game318560.konggames.com/gamez/0031/8560/live/kongregate_shell.html?kongregate_game_version=1588885076&kongregate_host=www.kongregate.com">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Action Game 2 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?warrior,game" alt="Action Game 2" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-blue text-white px-2 py-1 rounded text-sm">Action</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Epic Quest</h3>
+                        <p class="text-gray-600 mb-3">Embark on a journey through mythical realms.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Battle fierce monsters, solve ancient puzzles, and collect powerful artifacts in this epic adventure. Explore vast lands and uncover the secrets of a forgotten civilization.</p>
+                        <button class="play-game bg-apple-blue text-white w-full py-2 rounded hover:bg-blue-700 transition" data-src="https://game123880.konggames.com/gamez/0012/3880/live/index.html?kongregate_game_version=1623659415&kongregate_host=www.kongregate.com">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Action Game 3 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?adventure,game" alt="Action Game 3" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-blue text-white px-2 py-1 rounded text-sm">Action</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Ninja Master</h3>
+                        <p class="text-gray-600 mb-3">Test your stealth and combat skills in feudal Japan.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Master the ancient arts of ninjutsu as you navigate through shadowy environments. Employ stealth tactics or engage in direct combat to complete your missions.</p>
+                        <button class="play-game bg-apple-blue text-white w-full py-2 rounded hover:bg-blue-700 transition" data-src="https://html-classic.itch.zone/html/3868136/index.html?v=1732313766">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Action Game 4 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?fantasy,battle" alt="Action Game 4" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-blue text-white px-2 py-1 rounded text-sm">Action</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Monster Hunter</h3>
+                        <p class="text-gray-600 mb-3">Track and hunt monstrous creatures in a fantasy world.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Choose your weapon, develop your skills, and face increasingly dangerous monsters. Craft better equipment from monster parts to prepare for tougher challenges.</p>
+                        <button class="play-game bg-apple-blue text-white w-full py-2 rounded hover:bg-blue-700 transition" data-src="https://html-classic.itch.zone/html/12783704/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Action Game 5 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?crime,action" alt="Action Game 5" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-blue text-white px-2 py-1 rounded text-sm">Action</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Red Handed</h3>
+                        <p class="text-gray-600 mb-3">Solve crimes and catch criminals in this action thriller.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Take on the role of a detective with special abilities. Investigate crime scenes, chase suspects, and engage in intense action sequences to bring criminals to justice.</p>
+                        <button class="play-game bg-apple-blue text-white w-full py-2 rounded hover:bg-blue-700 transition" data-src="https://html-classic.itch.zone/html/3872485/Red%20Handed%20v1.1%20(WEBGL)/index.html?v=1732313766">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Action Game 6 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?medieval,knight" alt="Action Game 6" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-blue text-white px-2 py-1 rounded text-sm">Action</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Knight's Challenge</h3>
+                        <p class="text-gray-600 mb-3">Defend your kingdom from dark forces.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Don your armor and wield legendary weapons as you fight to protect your realm. Face hordes of enemies, mighty bosses, and uncover a plot that threatens all of humanity.</p>
+                        <button class="play-game bg-apple-blue text-white w-full py-2 rounded hover:bg-blue-700 transition" data-src="https://html-classic.itch.zone/html/1836952/index.html?v=1577643743">Play Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shooting Games -->
+        <section id="shooting" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-apple-green pl-3">Shooting Games</h2>
+            <p class="text-apple-text-secondary mb-8">Test your aim and reflexes with our selection of fast-paced shooting games featuring various weapons and enemies.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Shooting Game 1 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?shooting,game" alt="Shooting Game 1" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-green text-white px-2 py-1 rounded text-sm">Shooting</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Space Defender</h3>
+                        <p class="text-gray-600 mb-3">Protect Earth from alien invaders in this space shooter.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Command your spaceship through waves of alien attackers. Upgrade your weapons, improve your shields, and face increasingly difficult challenges as you advance through the galaxy.</p>
+                        <button class="play-game bg-apple-green text-white w-full py-2 rounded hover:bg-green-600 transition" data-src="https://html-classic.itch.zone/html/7967567/Web/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Shooting Game 2 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?sniper,game" alt="Shooting Game 2" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-green text-white px-2 py-1 rounded text-sm">Shooting</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">AC Shoot</h3>
+                        <p class="text-gray-600 mb-3">Precision shooting in high-stakes scenarios.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Take on the role of an elite marksman on critical missions. Use various weapons with unique ballistic properties, account for wind and distance, and complete challenging objectives.</p>
+                        <button class="play-game bg-apple-green text-white w-full py-2 rounded hover:bg-green-600 transition" data-src="https://html-classic.itch.zone/html/9344524/ACShoot_231219_960_640_fullscreen/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Shooting Game 3 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?western,old" alt="Shooting Game 3" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-green text-white px-2 py-1 rounded text-sm">Shooting</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Old Man Shoot</h3>
+                        <p class="text-gray-600 mb-3">A retired gunslinger takes on one last challenge.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Play as a legendary gunman who comes out of retirement to face a new threat. With steady hands and sharp eyes, navigate through dangerous territories and show that age is just a number.</p>
+                        <button class="play-game bg-apple-green text-white w-full py-2 rounded hover:bg-green-600 transition" data-src="https://html-classic.itch.zone/html/11844779/oldManShoot_Web/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Shooting Game 4 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?zombie,apocalypse" alt="Shooting Game 4" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-green text-white px-2 py-1 rounded text-sm">Shooting</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Zombie Outbreak</h3>
+                        <p class="text-gray-600 mb-3">Survive the undead apocalypse with limited resources.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Fight your way through hordes of zombies in a post-apocalyptic world. Scavenge for supplies, rescue survivors, and try to find a safe haven in this intense survival shooter.</p>
+                        <button class="play-game bg-apple-green text-white w-full py-2 rounded hover:bg-green-600 transition" data-src="https://html-classic.itch.zone/html/6924674/Web/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Shooting Game 5 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?cyberpunk,future" alt="Shooting Game 5" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-green text-white px-2 py-1 rounded text-sm">Shooting</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Cyber Assault</h3>
+                        <p class="text-gray-600 mb-3">High-tech warfare in a cyberpunk future.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">In a world dominated by corporations and technology, use advanced weapons and cybernetic enhancements to fight for freedom. Navigate neon-lit streets and futuristic environments in this stylish shooter.</p>
+                        <button class="play-game bg-apple-green text-white w-full py-2 rounded hover:bg-green-600 transition" data-src="https://html-classic.itch.zone/html/7024477/index.html">Play Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Racing Games -->
+        <section id="racing" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-apple-orange pl-3">Racing Games</h2>
+            <p class="text-apple-text-secondary mb-8">Feel the adrenaline rush with our racing games featuring high-speed cars, challenging tracks, and competitive action.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Racing Game 1 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?racing,car" alt="Racing Game 1" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-orange text-white px-2 py-1 rounded text-sm">Racing</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Turbo Racer</h3>
+                        <p class="text-gray-600 mb-3">High-speed street racing with customizable cars.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Race through city streets, mountain roads, and desert highways in this fast-paced racing game. Upgrade your car's performance, customize its appearance, and compete against skilled AI drivers.</p>
+                        ```thinking
+我需要继续编写之前未完成的网页代码。我之前写到了Racing Game 1的部分，但没有完成button部分和后续内容。让我继续完成这个游戏网站的代码。
+
+我还需要完成：
+1. Racing Game 1的play button
+2. Racing Game 2
+3. Horror Games部分
+4. 页面底部
+5. JavaScript交互代码
+
+我将继续保持相同的风格和结构，确保代码的连贯性。
+```
+
+<button class="play-game bg-apple-orange text-white w-full py-2 rounded hover:bg-orange-600 transition" data-src="https://html-classic.itch.zone/html/8124308/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Racing Game 2 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?kart,racing" alt="Racing Game 2" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-orange text-white px-2 py-1 rounded text-sm">Racing</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Super Kart Championship</h3>
+                        <p class="text-gray-600 mb-3">Fun kart racing with power-ups and crazy tracks.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Compete in a colorful kart racing championship across imaginative tracks. Collect power-ups, use special abilities, and race against quirky characters in this family-friendly racing game.</p>
+                        <button class="play-game bg-apple-orange text-white w-full py-2 rounded hover:bg-orange-600 transition" data-src="https://html-classic.itch.zone/html/10602157/CSIEMK-Final/index.html">Play Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horror Games -->
+        <section id="horror" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-apple-red pl-3">Horror Games</h2>
+            <p class="text-apple-text-secondary mb-8">Experience spine-chilling adventures with our collection of horror games that will test your courage and survival skills.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Horror Game 1 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?horror,dark" alt="Horror Game 1" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-red text-white px-2 py-1 rounded text-sm">Horror</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Abandoned Asylum</h3>
+                        <p class="text-gray-600 mb-3">Explore a haunted mental institution with a dark past.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Armed with only a flashlight, investigate the haunted halls of an abandoned asylum. Uncover the horrifying truth behind its closure while avoiding the vengeful spirits that still roam its corridors.</p>
+                        <button class="play-game bg-apple-red text-white w-full py-2 rounded hover:bg-red-600 transition" data-src="https://html-classic.itch.zone/html/7107557/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Horror Game 2 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?ghost,haunted" alt="Horror Game 2" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-red text-white px-2 py-1 rounded text-sm">Horror</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">The Haunting</h3>
+                        <p class="text-gray-600 mb-3">Survive a night in a house filled with supernatural threats.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Trapped in a haunted mansion, use your wits and limited resources to make it through the night. Solve puzzles, find hidden clues, and avoid the malevolent entities that want your soul.</p>
+                        <button class="play-game bg-apple-red text-white w-full py-2 rounded hover:bg-red-600 transition" data-src="https://html-classic.itch.zone/html/7150702/zuoyee22/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Horror Game 3 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?monster,dark" alt="Horror Game 3" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-red text-white px-2 py-1 rounded text-sm">Horror</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Midnight Snack</h3>
+                        <p class="text-gray-600 mb-3">Something hungers in the darkness while you search for food.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Find something to eat in your home during a midnight craving, but beware - you're not alone in the darkness. Navigate through your seemingly familiar house that has become disturbingly different at night.</p>
+                        <button class="play-game bg-apple-red text-white w-full py-2 rounded hover:bg-red-600 transition" data-src="https://html-classic.itch.zone/html/12422573/snack-20250105/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Horror Game 4 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?survival,horror" alt="Horror Game 4" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-red text-white px-2 py-1 rounded text-sm">Horror</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Forest of Whispers</h3>
+                        <p class="text-gray-600 mb-3">Find your way out of a mysterious forest with unseen dangers.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Lost in a foggy forest where the trees seem to move and whispers follow your every step. Collect items, solve environmental puzzles, and avoid the creatures hiding just beyond your vision.</p>
+                        <button class="play-game bg-apple-red text-white w-full py-2 rounded hover:bg-red-600 transition" data-src="https://html-classic.itch.zone/html/9036202/web/index.html">Play Now</button>
+                    </div>
+                </div>
+                
+                <!-- Horror Game 5 -->
+                <div class="game-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?creepy,dark" alt="Horror Game 5" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-apple-red text-white px-2 py-1 rounded text-sm">Horror</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">The Dark Room</h3>
+                        <p class="text-gray-600 mb-3">Escape a room where reality itself seems broken.</p>
+                        <p class="text-sm text-apple-text-secondary mb-4">Trapped in a strange room that defies the laws of physics, find a way to escape before your sanity breaks completely. Each puzzle solved reveals more of the disturbing truth about why you're there.</p>
+                        <button class="play-game bg-apple-red text-white w-full py-2 rounded hover:bg-red-600 transition" data-src="https://html-classic.itch.zone/html/2849678/index.html">Play Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-apple-text text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="#FFFFFF" d="M21,6.4C21,5.626 20.374,5 19.6,5H18.246C12.646,2.254 4.245,5.002 4,0H0C4.245,5.002 12.646,2.254 18.246,5H4C3.226,5 2.6,5.626 2.6,6.4V17.6C2.6,18.374 3.226,19 4,19H20c0.774,0 1.4-0.626 1.4-1.4V6.4zM14.346,8.002c0.613,0 1.111,0.498 1.111,1.111S14.959,10.224 14.346,10.224s-1.111-0.498-1.111-1.111S13.733,8.002 14.346,8.002zM18,8c0.552,0 1,0.447 1,1s-0.448,1-1,1s-1-0.447-1-1S17.448,8 18,8zM9,9c0.552,0 1,0.447 1,1s-0.448,1-1,1S8,10.553 8,10S8.448,9 9,9zM5.554,9.023c0.613,0 1.111,0.498 1.111,1.111s-0.498,1.111-1.111,1.111s-1.111-0.498-1.111-1.111S4.941,9.023 5.554,9.023zM14,15H10c-0.553,0-1-0.447-1-1s0.447-1,1-1h4c0.553,0 1,0.447 1,1S14.553,15 14,15z"/>
+                        </svg>
+                        <span class="text-xl font-bold">Erxiao's Games</span>
+                    </div>
+                    <p class="text-gray-400">Your destination for free online gaming entertainment</p>
+                </div>
+                <div class="flex gap-8">
+                    <div>
+                        <h4 class="text-lg font-medium mb-3">Categories</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#action" class="text-gray-400 hover:text-white">Action</a></li>
+                            <li><a href="#shooting" class="text-gray-400 hover:text-white">Shooting</a></li>
+                            <li><a href="#racing" class="text-gray-400 hover:text-white">Racing</a></li>
+                            <li><a href="#horror" class="text-gray-400 hover:text-white">Horror</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium mb-3">About</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Erxiao's Games. All rights reserved. | rookiewang.online</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Game playing functionality
+        const playButtons = document.querySelectorAll('.play-game');
+        const gameContainer = document.getElementById('game-container');
+        const closeGameButton = document.getElementById('close-game');
+        const iframeContainer = document.getElementById('iframe-container');
+        
+        playButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const gameSrc = button.getAttribute('data-src');
+                iframeContainer.innerHTML = `<iframe class="game-iframe active" src="${gameSrc}" allowfullscreen></iframe>`;
+                gameContainer.classList.remove('hidden');
+                window.scrollTo({
+                    top: gameContainer.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        closeGameButton.addEventListener('click', () => {
+            gameContainer.classList.add('hidden');
+            iframeContainer.innerHTML = '';
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
